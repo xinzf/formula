@@ -1,14 +1,18 @@
 package char
 
 import (
-    "github.com/xinzf/formula/utils"
 	"errors"
 	"fmt"
 	"github.com/Knetic/govaluate"
+	"github.com/xinzf/formula/utils"
 )
 
 type Left struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *Left) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *Left) GetName() string {
@@ -33,13 +37,6 @@ func (this *Left) GetFunc() govaluate.ExpressionFunction {
 		rs := []rune(arguments[0].(string))
 		return string(rs[:pos]), nil
 	}
-}
-func (this *Left) SetValues(values map[string]interface{}) {
-	this.values = values
-}
-
-func (this *Left) GetCategory() string {
-	return "文本函数"
 }
 
 func (this *Left) GetDescription() string {

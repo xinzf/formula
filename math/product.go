@@ -1,29 +1,25 @@
 package math
 
 import (
-    "github.com/xinzf/formula/utils"
 	"github.com/Knetic/govaluate"
+	"github.com/xinzf/formula/utils"
 )
 
 type Product struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *Product) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *Product) GetName() string {
 	return "PRODUCT"
 }
 
-func (*Product) GetCategory() string {
-	return "数学函数"
-}
-
 func (*Product) GetDescription() string {
 	return `PRODUCT(number1, [number2], …)
 函数使所有以参数形式给出的数字相乘并返回乘积。`
-}
-
-func (this *Product) SetValues(values map[string]interface{}) {
-	this.values = values
 }
 
 func (*Product) GetFunc() govaluate.ExpressionFunction {

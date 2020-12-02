@@ -3,7 +3,11 @@ package char
 import "github.com/Knetic/govaluate"
 
 type Search struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *Search) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *Search) GetName() string {
@@ -14,13 +18,6 @@ func (this *Search) GetFunc() govaluate.ExpressionFunction {
 	return func(arguments ...interface{}) (interface{}, error) {
 		return nil, nil
 	}
-}
-func (this *Search) SetValues(values map[string]interface{}) {
-	this.values = values
-}
-
-func (this *Search) GetCategory() string {
-	return "文本函数"
 }
 
 func (this *Search) GetDescription() string {

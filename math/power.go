@@ -1,22 +1,22 @@
 package math
 
 import (
-    "github.com/xinzf/formula/utils"
 	"errors"
 	"github.com/Knetic/govaluate"
+	"github.com/xinzf/formula/utils"
 	"math"
 )
 
 type Power struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *Power) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *Power) GetName() string {
 	return "POWER"
-}
-
-func (*Power) GetCategory() string {
-	return "数学函数"
 }
 
 func (*Power) GetDescription() string {
@@ -24,10 +24,6 @@ func (*Power) GetDescription() string {
 返回数字乘幂的结果。
 number: 必需。 基数。 可为任意实数。
 power: 必需。 基数乘幂运算的指数。`
-}
-
-func (this *Power) SetValues(values map[string]interface{}) {
-	this.values = values
 }
 
 func (*Power) GetFunc() govaluate.ExpressionFunction {

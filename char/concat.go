@@ -1,14 +1,18 @@
 package char
 
 import (
-    "github.com/xinzf/formula/utils"
 	"errors"
 	"github.com/Knetic/govaluate"
+	"github.com/xinzf/formula/utils"
 )
 
 // 使用场景：自动生成指定格式的字符串
 type Concat struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *Concat) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *Concat) GetName() string {
@@ -32,13 +36,6 @@ func (this *Concat) GetFunc() govaluate.ExpressionFunction {
 		}
 		return str, nil
 	}
-}
-func (this *Concat) SetValues(values map[string]interface{}) {
-	this.values = values
-}
-
-func (this *Concat) GetCategory() string {
-	return "文本函数"
 }
 
 func (this *Concat) GetDescription() string {

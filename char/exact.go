@@ -8,7 +8,11 @@ import (
 
 // 使用场景：比较两个字段的值是否相等，配合IF使用
 type Exact struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *Exact) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *Exact) GetName() string {
@@ -32,13 +36,6 @@ func (this *Exact) GetFunc() govaluate.ExpressionFunction {
 		}
 		return false, nil
 	}
-}
-func (this *Exact) SetValues(values map[string]interface{}) {
-	this.values = values
-}
-
-func (this *Exact) GetCategory() string {
-	return "文本函数"
 }
 
 func (this *Exact) GetDescription() string {

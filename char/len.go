@@ -7,7 +7,11 @@ import (
 )
 
 type Len struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *Len) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *Len) GetName() string {
@@ -23,13 +27,6 @@ func (this *Len) GetFunc() govaluate.ExpressionFunction {
 		str := utf8.RuneCountInString(val)
 		return str, nil
 	}
-}
-func (this *Len) SetValues(values map[string]interface{}) {
-	this.values = values
-}
-
-func (this *Len) GetCategory() string {
-	return "文本函数"
 }
 
 func (this *Len) GetDescription() string {

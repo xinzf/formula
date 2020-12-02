@@ -6,25 +6,21 @@ import (
 )
 
 type Not struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *Not) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *Not) GetName() string {
 	return "NOT"
 }
 
-func (*Not) GetCategory() string {
-	return "逻辑函数"
-}
-
 func (*Not) GetDescription() string {
 	return `NOT函数返回与指定表达式相反的布尔值。
 用法：NOT(逻辑表达式)
 示例：NOT(语文成绩>60)，如果语文成绩大于60返回false，否则返回true`
-}
-
-func (this *Not) SetValues(values map[string]interface{}) {
-	this.values = values
 }
 
 func (this *Not) GetFunc() govaluate.ExpressionFunction {
@@ -38,11 +34,11 @@ func (this *Not) GetFunc() govaluate.ExpressionFunction {
 			return nil, errors.New("NOT: 参数不是有效的 Boolean 数据")
 		}
 
-		if val == true {
-			return false, nil
-		} else {
-			return true, nil
-		}
-		return nil, nil
+		return !val, nil
+		//if val == true {
+		//	return false, nil
+		//} else {
+		//	return true, nil
+		//}
 	}
 }

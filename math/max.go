@@ -8,24 +8,20 @@ import (
 )
 
 type Max struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *Max) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *Max) GetName() string {
 	return "MAX"
 }
 
-func (*Max) GetCategory() string {
-	return "数学函数"
-}
-
 func (*Max) GetDescription() string {
 	return `MAX(number1, [number2], …)
 返回一组值中的最大值。`
-}
-
-func (this *Max) SetValues(values map[string]interface{}) {
-	this.values = values
 }
 
 func (*Max) GetFunc() govaluate.ExpressionFunction {

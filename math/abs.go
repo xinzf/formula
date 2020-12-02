@@ -8,24 +8,20 @@ import (
 )
 
 type Abs struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *Abs) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *Abs) GetName() string {
 	return "ABS"
 }
 
-func (*Abs) GetCategory() string {
-	return "数学函数"
-}
-
 func (*Abs) GetDescription() string {
 	return `ABS(number)
 返回数字的绝对值。`
-}
-
-func (this *Abs) SetValues(values map[string]interface{}) {
-	this.values = values
 }
 
 func (*Abs) GetFunc() govaluate.ExpressionFunction {

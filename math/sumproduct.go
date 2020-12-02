@@ -7,24 +7,20 @@ import (
 )
 
 type Sumproduct struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *Sumproduct) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *Sumproduct) GetName() string {
 	return "SUMPRODUCT"
 }
 
-func (*Sumproduct) GetCategory() string {
-	return "数学函数"
-}
-
 func (*Sumproduct) GetDescription() string {
 	return `SUMPRODUCT(array1, [array2])
 在给定的数组中，将数组间对应的元素相乘，并返回乘积之和。`
-}
-
-func (this *Sumproduct) SetValues(values map[string]interface{}) {
-	this.values = values
 }
 
 func (*Sumproduct) GetFunc() govaluate.ExpressionFunction {

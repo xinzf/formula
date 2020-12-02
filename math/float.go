@@ -1,30 +1,26 @@
 package math
 
 import (
-    "github.com/xinzf/formula/utils"
 	"errors"
 	"github.com/Knetic/govaluate"
+	"github.com/xinzf/formula/utils"
 )
 
 type Float struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *Float) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *Float) GetName() string {
 	return "FLOAT"
 }
 
-func (*Float) GetCategory() string {
-	return "数学函数"
-}
-
 func (*Float) GetDescription() string {
 	return `FLOAT(number)
 将数据转换为浮点型。`
-}
-
-func (this *Float) SetValues(values map[string]interface{}) {
-	this.values = values
 }
 
 func (*Float) GetFunc() govaluate.ExpressionFunction {

@@ -7,7 +7,11 @@ import (
 )
 
 type Lower struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *Lower) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *Lower) GetName() string {
@@ -27,14 +31,6 @@ func (this *Lower) GetFunc() govaluate.ExpressionFunction {
 
 		return strings.ToLower(val), nil
 	}
-}
-
-func (this *Lower) SetValues(values map[string]interface{}) {
-	this.values = values
-}
-
-func (this *Lower) GetCategory() string {
-	return "文本函数"
 }
 
 func (this *Lower) GetDescription() string {

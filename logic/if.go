@@ -6,25 +6,21 @@ import (
 )
 
 type If struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *If) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *If) GetName() string {
 	return "IF"
 }
 
-func (*If) GetCategory() string {
-	return "逻辑函数"
-}
-
 func (*If) GetDescription() string {
 	return `IF函数判断一个条件能否满足；如果满足返回一个值，如果不满足则返回另外一个值
 用法：IF(逻辑表达式,为true时返回的值,为false时返回的值)
 示例：IF(语文成绩>60,"及格","不及格")，当语文成绩>60时返回及格，否则返回不及格。`
-}
-
-func (this *If) SetValues(values map[string]interface{}) {
-	this.values = values
 }
 
 func (this *If) GetFunc() govaluate.ExpressionFunction {

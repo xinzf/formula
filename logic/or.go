@@ -6,15 +6,15 @@ import (
 )
 
 type Or struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *Or) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *Or) GetName() string {
 	return "OR"
-}
-
-func (*Or) GetCategory() string {
-	return "逻辑函数"
 }
 
 func (*Or) GetDescription() string {
@@ -23,27 +23,21 @@ func (*Or) GetDescription() string {
 示例：OR(语文成绩>90,数学成绩>90,英语成绩>90)，任何一门课成绩> 90，返回true，否则返回false`
 }
 
-func (this *Or) SetValues(values map[string]interface{}) {
-	this.values = values
-}
-
 func (this *Or) GetFunc() govaluate.ExpressionFunction {
 	return func(arguments ...interface{}) (interface{}, error) {
 		if len(arguments) == 0 {
 			return nil, errors.New("OR: 参数数量不足")
 		}
-		data := false
 		for _, a := range arguments {
 			val, flag := a.(bool)
 			if !flag {
 				return nil, errors.New("OR: 不是有效 Boolean 数据")
 			}
 			if val == true {
-				data = true
-				break
+				return true, nil
 			}
 		}
 
-		return data, nil
+		return false, nil
 	}
 }

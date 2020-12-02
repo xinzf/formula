@@ -1,32 +1,28 @@
 package math
 
 import (
-    "github.com/xinzf/formula/utils"
 	"errors"
 	"github.com/Knetic/govaluate"
+	"github.com/xinzf/formula/utils"
 	"math"
 )
 
 type Mod struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *Mod) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *Mod) GetName() string {
 	return "MOD"
 }
 
-func (*Mod) GetCategory() string {
-	return "数学函数"
-}
-
 func (*Mod) GetDescription() string {
 	return `返回两数相除的余数。 结果的符号与被除数相同。
 number: 必需。 要计算余数的被除数。
 divisor: 必需。 除数。`
-}
-
-func (this *Mod) SetValues(values map[string]interface{}) {
-	this.values = values
 }
 
 func (*Mod) GetFunc() govaluate.ExpressionFunction {

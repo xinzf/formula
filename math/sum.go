@@ -6,24 +6,20 @@ import (
 )
 
 type Sum struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *Sum) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *Sum) GetName() string {
 	return "SUM"
 }
 
-func (*Sum) GetCategory() string {
-	return "数学函数"
-}
-
 func (*Sum) GetDescription() string {
 	return `SUM(number1, [number2], …)
 函数使所有以参数形式给出的数字相加并返回和。`
-}
-
-func (this *Sum) SetValues(values map[string]interface{}) {
-	this.values = values
 }
 
 func (*Sum) GetFunc() govaluate.ExpressionFunction {

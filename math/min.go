@@ -8,24 +8,20 @@ import (
 )
 
 type Min struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *Min) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *Min) GetName() string {
 	return "MIN"
 }
 
-func (*Min) GetCategory() string {
-	return "数学函数"
-}
-
 func (*Min) GetDescription() string {
 	return `Min(number1, [number2], …)
 返回一组值中的最大值。`
-}
-
-func (this *Min) SetValues(values map[string]interface{}) {
-	this.values = values
 }
 
 func (*Min) GetFunc() govaluate.ExpressionFunction {

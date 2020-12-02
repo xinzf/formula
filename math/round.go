@@ -8,15 +8,15 @@ import (
 )
 
 type Round struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *Round) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *Round) GetName() string {
 	return "ROUND"
-}
-
-func (*Round) GetCategory() string {
-	return "数学函数"
 }
 
 func (*Round) GetDescription() string {
@@ -24,10 +24,6 @@ func (*Round) GetDescription() string {
 将数字四舍五入到指定的位数。
 number: 必需。 要四舍五入的数字。
 num_digits: 必需。 要进行四舍五入运算的位数。`
-}
-
-func (this *Round) SetValues(values map[string]interface{}) {
-	this.values = values
 }
 
 func (*Round) GetFunc() govaluate.ExpressionFunction {

@@ -6,25 +6,21 @@ import (
 )
 
 type Average struct {
-	values map[string]interface{}
+	Base
+}
+
+func (this *Average) Init(cfg interface{}) error {
+	return nil
 }
 
 func (this *Average) GetName() string {
 	return "AVERAGE"
 }
 
-func (*Average) GetCategory() string {
-	return "数学函数"
-}
-
 func (*Average) GetDescription() string {
 	return `AVERAGE函数可以获取一组数值的算术平均值
 用法：AVERAGE(数字1,数字2,...)
 示例：AVERAGE(语文成绩,数学成绩, 英语成绩)返回三门课程的平均分`
-}
-
-func (this *Average) SetValues(values map[string]interface{}) {
-	this.values = values
 }
 
 func (*Average) GetFunc() govaluate.ExpressionFunction {

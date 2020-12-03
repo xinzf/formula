@@ -1,9 +1,10 @@
 package formula
 
 import (
-	"errors"
 	"github.com/Knetic/govaluate"
+	"github.com/spf13/cast"
 	"github.com/xinzf/formula/logic"
+	"github.com/xinzf/formula/utils"
 )
 
 type Description interface {
@@ -145,21 +146,21 @@ func (this *Calculator) Functions() []Out {
 	return outs
 }
 
-func (this *Calculator) EvalBool(expression string) (bool, error) {
-	this.expression = expression
-	val, err := this.Eval(expression)
-	if err != nil {
-		return false, err
-	}
+//func (this *Calculator) EvalBool(expression string) (bool, error) {
+//	this.expression = expression
+//	val, err := this.Eval(expression)
+//	if err != nil {
+//		return false, err
+//	}
+//
+//	v, flag := val.(bool)
+//	if !flag {
+//		return false, errors.New("返回值不是有效 Boolean 数据")
+//	}
+//	return v, nil
+//}
 
-	v, flag := val.(bool)
-	if !flag {
-		return false, errors.New("返回值不是有效 Boolean 数据")
-	}
-	return v, nil
-}
-
-func (this *Calculator) Eval(expression string) (val interface{}, err error) {
+func (this *Calculator) eval(expression string) (val interface{}, err error) {
 	this.expression = expression
 	defer func() {
 		if er := recover(); er != nil {
@@ -189,4 +190,76 @@ func (this *Calculator) Eval(expression string) (val interface{}, err error) {
 
 func (this *Calculator) GetExpression() string {
 	return this.expression
+}
+
+type Expression string
+
+func (e Expression) String() string {
+	return string(e)
+}
+
+func (e Expression) Eval(values map[string]interface{}) (interface{}, error) {
+	return NewCalculator(values).eval(e.String())
+}
+
+func (e Expression) EvalBool(values map[string]interface{}) (bool, error) {
+	val, err := e.Eval(values)
+	if err != nil {
+		return false, err
+	}
+
+	return cast.ToBoolE(val)
+}
+
+func (e Expression) EvalString(values map[string]interface{}) (string, error) {
+	val, err := e.Eval(values)
+	if err != nil {
+		return "", err
+	}
+
+	return cast.ToStringE(val)
+}
+
+func (e Expression) EvalInt(values map[string]interface{}) (int64, error) {
+	val, err := e.Eval(values)
+	if err != nil {
+		return 0, err
+	}
+
+	return cast.ToInt64E(val)
+}
+
+func (e Expression) EvalFloat(values map[string]interface{}) (float64, error) {
+	val, err := e.Eval(values)
+	if err != nil {
+		return 0, err
+	}
+	return cast.ToFloat64E(val)
+}
+
+func (e Expression) EvalSliceString(values map[string]interface{}) ([]string, error) {
+	val, err := e.Eval(values)
+	if err != nil {
+		return []string{}, err
+	}
+
+	return cast.ToStringSliceE(val)
+}
+
+func (e Expression) EvalSliceInt(values map[string]interface{}) ([]int, error) {
+	val, err := e.Eval(values)
+	if err != nil {
+		return []int{}, err
+	}
+
+	return cast.ToIntSliceE(val)
+}
+
+func (e Expression) EvalBind(values map[string]interface{}, target interface{}) error {
+	val, err := e.Eval(values)
+	if err != nil {
+		return err
+	}
+
+	return utils.NewConvert(val).Bind(target)
 }

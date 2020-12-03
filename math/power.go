@@ -3,7 +3,7 @@ package math
 import (
 	"errors"
 	"github.com/Knetic/govaluate"
-	"github.com/xinzf/formula/utils"
+	"github.com/spf13/cast"
 	"math"
 )
 
@@ -32,8 +32,15 @@ func (*Power) GetFunc() govaluate.ExpressionFunction {
 			return nil, errors.New("POWER: 参数数量不对")
 		}
 
-		x := utils.NewConvert(arguments[0]).Float64()
-		y := utils.NewConvert(arguments[1]).Float64()
+		x, err := cast.ToFloat64E(arguments[0])
+		if err != nil {
+			return nil, errors.New("POWER 第一个参数不匹配")
+		}
+
+		y, err := cast.ToFloat64E(arguments[1])
+		if err != nil {
+			return nil, errors.New("POWER	第二个参数不匹配")
+		}
 
 		return math.Pow(x, y), nil
 

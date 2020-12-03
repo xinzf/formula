@@ -1,8 +1,10 @@
 package math
 
 import (
+	"errors"
+	"fmt"
 	"github.com/Knetic/govaluate"
-	"github.com/xinzf/formula/utils"
+	"github.com/spf13/cast"
 )
 
 type Product struct {
@@ -25,14 +27,18 @@ func (*Product) GetDescription() string {
 func (*Product) GetFunc() govaluate.ExpressionFunction {
 	return func(arguments ...interface{}) (interface{}, error) {
 		res := 1.0
-		for _, param := range arguments {
-			val := utils.NewConvert(param).Float64()
-			//val, flag := param.(float64)
-			//if !flag {
-			//	return nil, fmt.Errorf("CONCAT: 第 %d 个参数不是有效的 float64 类型", key)
-			//}
+		if len(arguments) < 1 {
+			return nil, errors.New("PRODUCT 参数数量不足")
+		}
+
+		for k, param := range arguments {
+			val, err := cast.ToFloat64E(param)
+			if err != nil {
+				return nil, fmt.Errorf("PRODUCT: 第 %d 个参数不是有效的 float64 类型", k)
+			}
 			res = val * res
 		}
+
 		return res, nil
 	}
 }

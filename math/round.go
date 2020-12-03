@@ -1,9 +1,10 @@
 package math
 
 import (
+	"errors"
 	"fmt"
 	"github.com/Knetic/govaluate"
-	"math"
+	"github.com/spf13/cast"
 	//"sort"
 )
 
@@ -28,19 +29,20 @@ num_digits: 必需。 要进行四舍五入运算的位数。`
 
 func (*Round) GetFunc() govaluate.ExpressionFunction {
 	return func(arguments ...interface{}) (interface{}, error) {
-		number, n_flag := arguments[0].(float64)
-		num_digit, d_flag := arguments[1].(float64)
-		if !n_flag {
-			return nil, fmt.Errorf("ROUND: 第一个参数不是有效的 float 类型")
+		if len(arguments) != 2 {
+			return nil, errors.New("ROUND 参数个数不足")
 		}
-		if !d_flag {
-			return nil, fmt.Errorf("ROUND: 第二个参数不是有效的 float 类型")
+		argument1, err := cast.ToFloat64E(arguments[0])
+		if err != nil {
+			return nil, errors.New("ROUND: 第一个参数不是有效的 float 类型")
 		}
 
-		num_digits := int(num_digit)
-		rs := math.Pow10(num_digits)
-		tmp := math.Floor(number*rs + 0.5)
-		res := tmp / rs
-		return res, nil
+		argument2, err := cast.ToIntE(arguments[1])
+		if err != nil {
+			return nil, errors.New("ROUND: 第一个参数不是有效的 int 类型")
+		}
+		str := "%." + cast.ToString(argument2) + "f"
+
+		return cast.ToFloat64(fmt.Sprintf(str, argument1)), nil
 	}
 }

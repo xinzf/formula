@@ -1,6 +1,7 @@
 package math
 
 import (
+	"errors"
 	"fmt"
 	"github.com/Knetic/govaluate"
 )
@@ -24,6 +25,9 @@ func (*Sum) GetDescription() string {
 
 func (*Sum) GetFunc() govaluate.ExpressionFunction {
 	return func(arguments ...interface{}) (interface{}, error) {
+		if len(arguments) < 1 {
+			return nil, errors.New("SUM 参数不足")
+		}
 		res := 0.00
 		for key, param := range arguments {
 			val, flag := param.(float64)

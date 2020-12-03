@@ -3,7 +3,7 @@ package math
 import (
 	"errors"
 	"github.com/Knetic/govaluate"
-	"github.com/xinzf/formula/utils"
+	"github.com/spf13/cast"
 	"math"
 )
 
@@ -31,8 +31,14 @@ func (*Mod) GetFunc() govaluate.ExpressionFunction {
 			return nil, errors.New("MOD: 参数数量不对")
 		}
 
-		x := utils.NewConvert(arguments[0]).Float64()
-		y := utils.NewConvert(arguments[1]).Float64()
+		x, err := cast.ToFloat64E(arguments[0])
+		if err != nil {
+			return nil, errors.New("MOD 第一个参数类型不匹配")
+		}
+		y, err := cast.ToFloat64E(arguments[1])
+		if err != nil {
+			return nil, errors.New("MOD 第二个参数类型不匹配")
+		}
 
 		if y == 0 {
 			return nil, errors.New("MOD: 第 2 个参数不能为 0 ，或者其类型错误")

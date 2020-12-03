@@ -23,5 +23,5 @@ func (this *Search) GetFunc() govaluate.ExpressionFunction {
 func (this *Search) GetDescription() string {
 	return `SEARCH函数可以获取文本1在文本2中的开始位置
 用法：SEARCH(文本1,文本2)
-示例：SEARCH("2016","居润2019")返回4`
+示例：SEARCH("2016","居润2016")返回4`
 }

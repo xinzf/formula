@@ -30,5 +30,4 @@ func (this *DateAdd) GetDescription() string {
    number: （必选）间隔，一个有符号整数，支持负号（表示时间往前算起）
    date: （必选）从该日期开始算起，格式为yyyy-MM-dd HH:mm:ss或yyyy-MM-dd
 `
-	panic("implement me")
 }

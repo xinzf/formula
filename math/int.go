@@ -3,7 +3,7 @@ package math
 import (
 	"errors"
 	"github.com/Knetic/govaluate"
-	"github.com/xinzf/formula/utils"
+	"github.com/spf13/cast"
 )
 
 type Int struct {
@@ -29,6 +29,6 @@ func (*Int) GetFunc() govaluate.ExpressionFunction {
 			return nil, errors.New("INT: 参数不足")
 		}
 
-		return utils.NewConvert(arguments[0]).Int(), nil
+		return cast.ToInt(arguments[0]), nil
 	}
 }

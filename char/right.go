@@ -1,6 +1,10 @@
 package char
 
-import "github.com/Knetic/govaluate"
+import (
+	"errors"
+	"github.com/Knetic/govaluate"
+	"github.com/spf13/cast"
+)
 
 type Right struct {
 	Base
@@ -16,7 +20,30 @@ func (this *Right) GetName() string {
 
 func (this *Right) GetFunc() govaluate.ExpressionFunction {
 	return func(arguments ...interface{}) (interface{}, error) {
-		return nil, nil
+		if len(arguments) != 2 {
+			return nil, errors.New("RIGHT 参数数量不足")
+		}
+		argument1, err := cast.ToStringE(arguments[0])
+		if err != nil {
+			return nil, errors.New("RIGHT 第一个参数类型不匹配")
+		}
+		argument2, err := cast.ToIntE(arguments[1])
+
+		if err != nil {
+			return nil, errors.New("RIGHT 第二个参数不匹配")
+		}
+
+		if argument2 <= 0 {
+			return argument1, nil
+		}
+
+		rune_ := []rune(argument1)
+
+		if len(rune_)-1 < argument2 {
+			return argument1, nil
+		}
+
+		return string(rune_[len(rune_) - argument2:]), nil
 	}
 }
 

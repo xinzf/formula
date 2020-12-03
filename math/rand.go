@@ -1,7 +1,6 @@
 package math
 
 import (
-	"errors"
 	"github.com/Knetic/govaluate"
 	"math/rand"
 )
@@ -25,9 +24,6 @@ func (*Rand) GetDescription() string {
 
 func (*Rand) GetFunc() govaluate.ExpressionFunction {
 	return func(arguments ...interface{}) (interface{}, error) {
-		if len(arguments) > 0 {
-			return nil, errors.New("RAND: 参数数量不对")
-		}
 		return rand.Float64(), nil
 	}
 }

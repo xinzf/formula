@@ -3,7 +3,10 @@ package formula
 import (
 	"github.com/Knetic/govaluate"
 	"github.com/spf13/cast"
+	"github.com/xinzf/formula/char"
+	"github.com/xinzf/formula/datetime"
 	"github.com/xinzf/formula/logic"
+	"github.com/xinzf/formula/math"
 	"github.com/xinzf/formula/utils"
 )
 
@@ -28,6 +31,7 @@ func init() {
 	//_ = RegisterFunction(new(advance.Json), nil)
 	// 文本函数
 	//_ = RegisterFunction(new(char.Concat), nil)
+	//_ = RegisterFunction(new(char.Join), nil)
 	//_ = RegisterFunction(new(char.Exact), nil)
 	//_ = RegisterFunction(new(char.Left), nil)
 	//_ = RegisterFunction(new(char.Len), nil)
@@ -38,9 +42,9 @@ func init() {
 	//_ = RegisterFunction(new(char.Search), nil)
 	//_ = RegisterFunction(new(char.Split), nil)
 	//_ = RegisterFunction(new(char.Trim), nil)
-	//_ = RegisterFunction(new(char.Upper), nil)
+	_ = RegisterFunction(new(char.Upper), nil)
 	// 日期函数
-	//_ = RegisterFunction(new(datetime.Date), nil)
+	_ = RegisterFunction(new(datetime.Date), nil)
 	//_ = RegisterFunction(new(datetime.DateAdd), nil)
 	//_ = RegisterFunction(new(datetime.DateTime), nil)
 	//_ = RegisterFunction(new(datetime.DayOfMonth), nil)
@@ -86,9 +90,9 @@ func init() {
 	//_ = RegisterFunction(new(math.Power), nil)
 	//_ = RegisterFunction(new(math.Product), nil)
 	//_ = RegisterFunction(new(math.Rand), nil)
-	//_ = RegisterFunction(new(math.Round), nil)
+	_ = RegisterFunction(new(math.Round), nil)
 	//_ = RegisterFunction(new(math.Sum), nil)
-	//_ = RegisterFunction(new(math.Sumproduct), nil)
+	_ = RegisterFunction(new(math.Sumproduct), nil)
 }
 
 func RegisterFunction(fn Function, cfg interface{}) error {
@@ -162,14 +166,14 @@ func (this *Calculator) Functions() []Out {
 
 func (this *Calculator) eval(expression string) (val interface{}, err error) {
 	this.expression = expression
-	defer func() {
-		if er := recover(); er != nil {
-			switch er.(type) {
-			case error:
-				err = er.(error)
-			}
-		}
-	}()
+	//defer func() {
+	//	if er := recover(); er != nil {
+	//		switch er.(type) {
+	//		case error:
+	//			err = er.(error)
+	//		}
+	//	}
+	//}()
 
 	funcs := this.build()
 

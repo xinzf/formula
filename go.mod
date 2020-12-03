@@ -12,4 +12,5 @@ require (
 	github.com/shopspring/decimal v0.0.0-20200427060321-c939845a686f
 	github.com/spf13/cast v1.3.1
 	github.com/stretchr/testify v1.5.1 // indirect
+	github.com/uniplaces/carbon v0.1.6
 )

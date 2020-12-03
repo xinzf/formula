@@ -38,7 +38,11 @@ func (*Sumproduct) GetFunc() govaluate.ExpressionFunction {
 		}
 		sum := 0.00
 		for key, param := range arr_one {
-			sum = param*arr_two[key] + sum
+			if len(arr_two)-1 < key {
+				continue
+			} else {
+				sum = param*arr_two[key] + sum
+			}
 		}
 		return sum, nil
 	}

@@ -1,6 +1,11 @@
 package char
 
-import "github.com/Knetic/govaluate"
+import (
+	"errors"
+	"github.com/Knetic/govaluate"
+	"github.com/spf13/cast"
+	"strings"
+)
 
 type Trim struct {
 	Base
@@ -16,7 +21,16 @@ func (this *Trim) GetName() string {
 
 func (this *Trim) GetFunc() govaluate.ExpressionFunction {
 	return func(arguments ...interface{}) (interface{}, error) {
-		return nil, nil
+		if len(arguments) != 1 {
+			return nil, errors.New("TRIM 参数不足")
+		}
+		str,err:= cast.ToStringE(arguments[0])
+
+		if err != nil {
+			return nil, errors.New("TRIM 传入参数有误")
+		}
+
+		return strings.Replace(str, " ", "", -1), nil
 	}
 }
 

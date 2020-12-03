@@ -1,6 +1,10 @@
 package char
 
-import "github.com/Knetic/govaluate"
+import (
+	"errors"
+	"github.com/Knetic/govaluate"
+	"github.com/spf13/cast"
+)
 
 type Rept struct {
 	Base
@@ -16,7 +20,24 @@ func (this *Rept) GetName() string {
 
 func (this *Rept) GetFunc() govaluate.ExpressionFunction {
 	return func(arguments ...interface{}) (interface{}, error) {
-		return nil, nil
+		if len(arguments) != 2 {
+			return nil, errors.New("REPT 参数'数量不足")
+		}
+		argument1, err := cast.ToStringE(arguments[0])
+		if err != nil {
+			return nil, err
+		}
+		argument2, err := cast.ToIntE(arguments[1])
+		if err != nil {
+			return nil, err
+		}
+		var str string
+
+		for i := 0; i < argument2; i++ {
+			str += argument1
+		}
+		
+		return str, nil
 	}
 }
 

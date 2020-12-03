@@ -26,7 +26,11 @@ func (*Max) GetDescription() string {
 
 func (*Max) GetFunc() govaluate.ExpressionFunction {
 	return func(arguments ...interface{}) (interface{}, error) {
-		var paramSlice []float64
+		//var paramSlice = []float64{}
+		paramSlice := make([]float64, 0)
+		if len(arguments) < 1 {
+			return nil, fmt.Errorf("MAX 参数个数不足")
+		}
 		for key, param := range arguments {
 			val, flag := param.(float64)
 			if !flag {

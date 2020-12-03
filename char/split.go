@@ -1,6 +1,11 @@
 package char
 
-import "github.com/Knetic/govaluate"
+import (
+	"errors"
+	"github.com/Knetic/govaluate"
+	"github.com/spf13/cast"
+	"strings"
+)
 
 type Split struct {
 	Base
@@ -16,7 +21,20 @@ func (this *Split) GetName() string {
 
 func (this *Split) GetFunc() govaluate.ExpressionFunction {
 	return func(arguments ...interface{}) (interface{}, error) {
-		return nil, nil
+		if len(arguments) != 2 {
+			return nil, errors.New("SPLIT 参数数量不足")
+		}
+		argument1, err := cast.ToStringE(arguments[0])
+		if err != nil {
+			return nil, errors.New("SPLIT 第一个参数类型不匹配")
+		}
+		argument2, err := cast.ToStringE(arguments[1])
+		if err != nil {
+			return nil, errors.New("SPLIT 第二个参数类型不匹配")
+		}
+
+
+		return strings.Join(strings.Split(argument1, argument2), ","), nil
 	}
 }
 

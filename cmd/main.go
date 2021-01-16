@@ -6,12 +6,8 @@ import (
 )
 
 func main() {
-	args := make(map[string]interface{})
-	args["aaa"] = []float64{1,2}
-	args["bbb"] = []float64{3,2}
-	//args=append(args,true)
-	var exp formula.Expression = `SUMPRODUCT(aaa,bbb)`
-	ret, err := exp.EvalFloat(args)
+	var exp formula.Expression = `DATE('fsdf','')`
+	ret, err := exp.EvalString(nil)
 	if err != nil {
 		panic(err)
 	}

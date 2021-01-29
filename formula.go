@@ -128,7 +128,7 @@ func (this *Calculator) build() map[string]govaluate.ExpressionFunction {
 	return funcs
 }
 
-func (this *Calculator) Functions() []Out {
+func Functions() []Out {
 	outs := make([]Out, 0)
 	indexs := make(map[string]int, 0)
 	for _, f := range _functions {

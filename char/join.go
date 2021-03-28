@@ -24,9 +24,9 @@ func (j *Join) GetFunc() govaluate.ExpressionFunction {
 		if len(arguments) != 2 {
 			return nil, errors.New("JOIN 参数数量不足")
 		}
-		if _, ok := arguments[0].([]string); !ok {
-			return nil, errors.New("JOIN 第一个参数类型不正确")
-		}
+		//if _, ok := arguments[0].([]string); !ok {
+		//	return nil, errors.New("JOIN 第一个参数类型不正确")
+		//}
 
 		if _, ok := arguments[1].(string); !ok {
 			return nil, errors.New("JOIN 第二个参数类型不正确")

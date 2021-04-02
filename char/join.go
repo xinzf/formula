@@ -2,6 +2,7 @@ package char
 
 import (
 	"errors"
+	"fmt"
 	"github.com/Knetic/govaluate"
 	"github.com/spf13/cast"
 	"strings"
@@ -21,6 +22,7 @@ func (j *Join) GetName() string {
 
 func (j *Join) GetFunc() govaluate.ExpressionFunction {
 	return func(arguments ...interface{}) (interface{}, error) {
+		fmt.Println("join", len(arguments), arguments)
 		if len(arguments) != 2 {
 			return nil, errors.New("JOIN 参数数量不足")
 		}

@@ -36,7 +36,7 @@ func (this *Rept) GetFunc() govaluate.ExpressionFunction {
 		for i := 0; i < argument2; i++ {
 			str += argument1
 		}
-		
+
 		return str, nil
 	}
 }

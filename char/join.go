@@ -23,18 +23,21 @@ func (j *Join) GetName() string {
 func (j *Join) GetFunc() govaluate.ExpressionFunction {
 	return func(arguments ...interface{}) (interface{}, error) {
 		fmt.Println("join", len(arguments), arguments)
-		if len(arguments) != 2 {
+		if len(arguments) < 2 {
 			return nil, errors.New("JOIN 参数数量不足")
 		}
 		//if _, ok := arguments[0].([]string); !ok {
 		//	return nil, errors.New("JOIN 第一个参数类型不正确")
 		//}
-
-		if _, ok := arguments[1].(string); !ok {
-			return nil, errors.New("JOIN 第二个参数类型不正确")
+		if len(arguments) == 2 {
+			if _, ok := arguments[1].(string); !ok {
+				return nil, errors.New("JOIN 第二个参数类型不正确")
+			}
+			return strings.Join(cast.ToStringSlice(arguments[0]), cast.ToString(arguments[1])), nil
 		}
-
-		return strings.Join(cast.ToStringSlice(arguments[0]), cast.ToString(arguments[1])), nil
+		sep := arguments[len(arguments)-1]
+		arr := arguments[:len(arguments)-1]
+		return strings.Join(cast.ToStringSlice(arr), cast.ToString(sep)), nil
 	}
 }
 

@@ -43,7 +43,7 @@ func (this *Right) GetFunc() govaluate.ExpressionFunction {
 			return argument1, nil
 		}
 
-		return string(rune_[len(rune_) - argument2:]), nil
+		return string(rune_[len(rune_)-argument2:]), nil
 	}
 }
 

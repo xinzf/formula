@@ -24,7 +24,7 @@ func (this *Trim) GetFunc() govaluate.ExpressionFunction {
 		if len(arguments) != 1 {
 			return nil, errors.New("TRIM 参数不足")
 		}
-		str,err:= cast.ToStringE(arguments[0])
+		str, err := cast.ToStringE(arguments[0])
 
 		if err != nil {
 			return nil, errors.New("TRIM 传入参数有误")

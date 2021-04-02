@@ -33,7 +33,6 @@ func (this *Split) GetFunc() govaluate.ExpressionFunction {
 			return nil, errors.New("SPLIT 第二个参数类型不匹配")
 		}
 
-
 		return strings.Join(strings.Split(argument1, argument2), ","), nil
 	}
 }
